@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scene Classification AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="page-wrapper">
+
+        <div class="hero-section">
+            <div class="badge">PyTorch + ResNet18 + Apple MPS</div>
+            <h1>Scene Classification AI</h1>
+            <p>
+                Upload an image and let the trained ResNet18 model predict whether it is
+                a building, forest, glacier, mountain, sea, or street scene.
+            </p>
+        </div>
+
+        <div class="main-card">
+
+            <form method="POST" enctype="multipart/form-data" class="upload-form">
+
+                <label for="image" class="upload-box">
+                    <div class="upload-icon">📷</div>
+                    <h3>Upload Scene Image</h3>
+                    <p>PNG, JPG, JPEG, or WEBP supported</p>
+                    <input type="file" name="image" id="image" accept="image/*" required>
+                </label>
+
+                <div class="button-group">
+                    <button type="submit" class="predict-btn">
+                        Predict Image
+                    </button>
+
+                    <a href="/" class="reset-btn">
+                        Reset
+                    </a>
+                </div>
+
+            </form>
+
+            {% if error %}
+                <div class="error-box">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if prediction %}
+                <div class="result-section">
+
+                    <div class="image-preview">
+                        <img src="{{ image_url }}" alt="Uploaded Image">
+                    </div>
+
+                    <div class="prediction-card">
+                        <p class="small-title">Prediction Result</p>
+                        <h2>{{ prediction }}</h2>
+
+                        <div class="confidence-box">
+                            <span>Confidence</span>
+                            <strong>{{ confidence }}%</strong>
+                        </div>
+
+                        <div class="device-info">
+                            Running on: {{ device }}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="probability-section">
+                    <h3>Class Probabilities</h3>
+
+                    {% for item in class_probabilities %}
+                        <div class="prob-row">
+                            <div class="prob-label">
+                                <span>{{ item.class_name }}</span>
+                                <span>{{ item.probability }}%</span>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {{ item.probability }}%;"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="footer-text">
+            Built with PyTorch, Flask, HTML, CSS, and ResNet18 Transfer Learning.
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Mac files
+.DS_Store
+
+# Dataset files
+data/raw/
+data/processed/
+*.zip
+
+# Uploaded UI images
+static/uploads/*
+
+# Keep uploads folder
+!static/uploads/.gitkeep
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model files - optional
+# If model is large, do not push it
+models/saved/*.pth
+
+# Kaggle API key
+kaggle.json
+.kaggle/
